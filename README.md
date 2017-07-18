@@ -1,30 +1,30 @@
-# electron-quick-start
+# electron-timebar-clone
 
-**Clone and run for a quick way to see an Electron in action.**
+After the unfortunate removal of "TimeBar" from the Mac App Store (read about it here)[https://twitter.com/timebar/status/578733783295340544?lang=en], I decided to make my own clone.
 
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start) within the Electron documentation.
+This is just a first pass and I use alfred to activate it.
 
-A basic Electron application needs just these files:
+## Instructions
 
-- `index.html` - A web page to render.
-- `main.js` - Starts the app and creates a browser window to render HTML.
-- `package.json` - Points to the app's main file and lists its details and dependencies.
+ 1. Install yarn globally (or just use npm)
+ 2. `yarn` or `npm install`
+ 3. Import the alfred workflow and modify the "bash" portion to point to your copy of the clone
+ 4. Run alfred, and enter `b 10` for a 10 minute timer.
+ 
+## Contributing
 
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
+Please please please fork and make changes. I'll try my best to merge these instantly unless they break things for me.
 
-## To Use
+## Known issues
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+- umm, it's barely working (but it works!)
+- yeah cpu is kind of high for the smooth transition. I tried a modified version which updates every 3 seconds, but it's not as sexy and I have cpu to spare on my MBP.
+- The notification text isn't accurate
 
-```bash
-# Clone this repository
-git clone https://github.com/atom/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies and run the app
-npm install && npm start
-```
+## Wishes
 
-Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
-
-#### License [CC0 (Public Domain)](LICENSE.md)
+ - I'd love to emulate the original TimeBar functionality of having the menu bar be tinted, but I don't believe this is possible with electron
+ - A way to set default colors, heights, etc. from a config file, env vars, or passed in via command line
+ - a well-packaged binary
+ 
+ 
