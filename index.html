@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <script>window.$ = window.jQuery = require('./js/jquery.js');</script>
+    <script>
+      const electron = require('electron');
+      const ipc = electron.ipcRenderer;
+      ipc.on('startCountdown', function(event, data){
+        // console.log(event,data)
+        startCountdown(data.seconds,data.width)
+        console.log("startCountdown",event,data)
+      });
+
+      ipc.on('activate', function(event, data){
+        // console.log(event,data)
+        console.log("activate",event,data)
+      });
+
+      Notification.requestPermission();
+
+      const dialog = require('electron').dialog;
+
+      var initialSeconds;
+      var duration = 60000;
+      var currentTimeLeft;
+      var timeStart;
+      var barWidth;
+
+      function startCountdown(seconds,width){ 
+        console.log("...",seconds,width)
+        initialSeconds = seconds;
+        duration = seconds*1000
+        barWidth = width;
+        currentTimeLeft = duration;
+        console.log(".....")
+        var startTime = (new Date()).getTime();
+        // $("#timeBar").css('transition',"width 1s linear")
+        $(".color-bar").css('transition',"width "+seconds+"s linear")
+        console.log(".........",startTime)
+        setTimeout(function(){
+          $(".color-bar").css('width',"0px")
+        })
+        // var interval = setInterval(function(){
+        //   currentTimeLeft = duration - (new Date().getTime() - startTime);
+        //   console.log("--",currentTimeLeft)
+        //   if(currentTimeLeft > 0){
+        //     var width = barWidth * currentTimeLeft / duration;
+        //     $("#timeBar").css('width',width+"px") 
+        //   }else {
+        //   }
+        // },3000)
+
+
+        setTimeout(function(){
+            var notify = new Notification("Time is up", { 
+                body: "Click to start again.", 
+                icon: 'assets/icon.png',
+                silent: true
+            });
+            // notify.onclick(function(){
+            //   notification.close();
+            //   console.log("what?")
+            //   startCountdown(initialSeconds,barWidth)
+            // })
+            clearInterval(interval)
+            $("#timeBar").css('width',"0px")        
+            setTimeout(function(){
+                electron.quit()              
+            },2000)
+        },duration)
+      }
+
+
+      // $(window).on('resize',function(){
+      //     barWidth = window.innerWidth;
+      // })
+
+            // startCountdown(160000,2560)
+
+    </script>
+  </head>
+  <body>
+   <style>
+    html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            /*background: #000;*/
+    }
+
+    .color-bar {
+      background-color: rgba(155,0,255,.7);
+      width:100%;
+      height:4px;
+      /*transition: width 1s ease;*/
+
+     /* ease*/;
+    }
+    html {
+      box-sizing: border-box;
+      padding:0;
+      margin:0;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+}
+   </style>
+    <div id="timeBar" class="color-bar"></div>
+  </body>
+</html>
